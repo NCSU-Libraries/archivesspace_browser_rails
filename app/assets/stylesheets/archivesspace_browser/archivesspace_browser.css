@@ -1,0 +1,134 @@
+#archivesspace-browser {
+  border: 1px solid $grayLight;
+  padding: 0.5rem 1rem;
+  background: $grayGhost;
+}
+
+#archivesspace-browser h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#archivesspace-browser label {
+  font-weight: bold;
+  font-size: 1rem !important;
+}
+
+#archivesspace-browser .select-record {
+  padding-left: 1rem;
+  position: relative;
+  top: -3px;
+  white-space: nowrap;
+}
+
+#archivesspace-browser .select-record .link {
+  text-transform: uppercase;
+  font-size: 60%;
+  line-height: 1.2em;
+  padding: 0.2rem;
+  color: white;
+  background: #666;
+  text-decoration: none;
+}
+
+#archivesspace-browser .select-record .link:hover {
+  background: $blue;
+}
+
+#archivesspace-browser .tree-level {
+  margin-bottom: 0.5rem;
+}
+
+#archivesspace-browser .tree-level .container {
+  font-style: italic;
+}
+
+#archivesspace-browser .tree-branches {
+  background: $gray;
+  color: $white;
+  padding: 0.25rem 0.5rem;
+}
+
+#archivesspace-browser .tree-branches .tree-level {
+  margin-bottom: 0;
+}
+
+#archivesspace-browser .tree-branches a,
+#archivesspace-browser .tree-branches .link {
+  color: #99E2FF;
+}
+
+#archivesspace-browser .tree-level-branch {
+  font-weight: bold;
+}
+
+#archivesspace-browser #resource-search-results {
+  margin: 1rem 0;
+}
+
+#archivesspace-browser #resource-search-results .row {
+  margin-bottom: 0.5rem;
+}
+
+#archivesspace-browser #back-to-search {
+  font-style: italic;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+}
+
+#archivesspace-browser #resource-tree-level-content .tree-leaves {
+  max-height: 300px;
+  overflow: auto;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 0.5rem 0;
+  background: $grayGhost2;
+}
+
+/* Force Webkit to display scrollbars */
+#archivesspace-browser #resource-tree-level-content .tree-leaves::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+#archivesspace-browser #resource-tree-level-content .tree-leaves::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+#archivesspace-browser-components .level-0 { padding-left: 0; }
+#archivesspace-browser-components .level-1 { padding-left: 1rem; }
+#archivesspace-browser-components .level-2 { padding-left: 2rem; }
+#archivesspace-browser-components .level-3 { padding-left: 3rem; }
+#archivesspace-browser-components .level-4 { padding-left: 4rem; }
+#archivesspace-browser-components .level-5 { padding-left: 5rem; }
+#archivesspace-browser-components .level-6 { padding-left: 6rem; }
+#archivesspace-browser-components .level-7 { padding-left: 7rem; }
+#archivesspace-browser-components .level-8 { padding-left: 8rem; }
+#archivesspace-browser-components .level-9 { padding-left: 9rem; }
+#archivesspace-browser-components .level-10 { padding-left: 10rem; }
+#archivesspace-browser-components .level-11 { padding-left: 11rem; }
+#archivesspace-browser-components .level-12 { padding-left: 12rem; }
+
+#archivesspace-browser-post {
+  margin: 0 0 1.5rem 0;
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  background: $grayLightest;
+}
+
+#archivesspace-browser-post #back-to-select {
+  margin-bottom: 0.5rem;
+}
+
+#archivesspace-browser-post #record-pane  .heading {
+  margin: 0 0 0.5rem 0;
+  font-size: 80%;
+  text-transform: uppercase;
+}
+
+#archivesspace-browser-post #record-pane .tree-level-leaf {
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  line-height: 1.3em;
+}
