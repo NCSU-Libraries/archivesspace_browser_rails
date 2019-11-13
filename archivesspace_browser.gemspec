@@ -7,14 +7,16 @@ require "archivesspace_browser/version"
 Gem::Specification.new do |spec|
   spec.name        = "archivesspace_browser"
   spec.version     = ArchivesspaceBrowser::VERSION
-  spec.authors     = ["Trevo Thornton"]
+  spec.authors     = ["Trevor Thornton"]
   spec.email       = ["trthorn2@ncsu.edu"]
-  spec.homepage    = "TODO"
+  spec.homepage    = "https://lib.ncsu.edu"
   spec.summary     = "A Rails Engine gem that provides an interface to browse records in ArchivesSpace from within
       a Ruby on Rails application."
   spec.description = "A Rails Engine gem that provides an interface to browse records in ArchivesSpace from within
       a Ruby on Rails application."
   spec.license     = "MIT"
+
+  spec.require_paths = ["lib", "app"]
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -27,7 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 5.2.2", ">= 5.2.2.1"
+  spec.add_dependency "rails", "~> 5.2", ">= 5.2.2.1"
 
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "bundler"
