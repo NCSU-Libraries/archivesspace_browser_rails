@@ -1,7 +1,17 @@
+// This is only part that will be affected by ERB template processing
+// Sets the root path for backend requests based on Rails configuration
+
+function rootPath() {
+  return '<%= Rails.application.config.action_controller.relative_url_root %>';
+}
+
+
+// Begin ArchivesspaceBrowser object definition
+
 function ArchivesspaceBrowser(options) {
   options = options || {};
-
-  this.apiRootPath = rootPath() + '/archivesspace'
+  console.log("hello from ArchivesSpace Browser")
+  this.apiRootPath = rootPath() + '/archivesspace_browser'
   this.rootSelector = '#archivesspace-browser';
   this.rootElement = document.querySelector(this.rootSelector);
   this.callback = options.callback;
@@ -14,6 +24,98 @@ function ArchivesspaceBrowser(options) {
 }
 
 
+/* Utility functions */
+
+ArchivesspaceBrowser.prototype.getUrl = function(url, callback) {
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4 && request.status == 200) {
+      callback(request.responseText);
+    }
+  }
+
+  request.open('GET', url, true );
+  var token = document.querySelector('meta[name="csrf-token"]').content;
+  request.setRequestHeader('X-CSRF-Token', token);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.send();
+}
+
+ArchivesspaceBrowser.prototype.getUrlWithParams = function(url, params, callback) {
+  if (params) {
+    qStrings = [];
+    for (var key in params) {
+      qStrings.push(key + '=' + encodeURIComponent(params[key]))
+    }
+    if (qStrings.length > 0) {
+      url = url + '?' + qStrings.join('&');
+    }
+  }
+  this.getUrl(url, callback);
+}
+
+ArchivesspaceBrowser.prototype.htmlToElement = function(html) {
+  var template = document.createElement('template');
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
+}
+
+ArchivesspaceBrowser.prototype.generateElement = function(name, classes) {
+  var el = document.createElement(name);
+  if (typeof classes == 'string') {
+    classes = [ classes ];
+  }
+  if (classes) {
+    classes.forEach(function(c) { el.classList.add(c) });
+  }
+  return el;
+}
+
+ArchivesspaceBrowser.prototype.generateBackLink = function(text, href) {
+  var link = this.generateElement('span', ['link','back-link']);
+  var textNode = document.createTextNode(text);
+  var i = this.generateElement('i', ['fas','fa-hand-point-left']);
+  link.appendChild(i);
+  link.appendChild(textNode);
+  if (href) {
+    link.setAttribute('href', href);
+  }
+  return link;
+}
+
+ArchivesspaceBrowser.prototype.setElementAttributes = function(el, attributes) {
+  for (var attr in attributes) {
+    el.setAttribute(attr,attributes[attr]);
+  }
+  return el;
+}
+
+ArchivesspaceBrowser.prototype.appendChildren = function(el, children) {
+  children.forEach(function(child) {
+    el.appendChild(child);
+  })
+  return el;
+}
+
+ArchivesspaceBrowser.prototype.hidden = function(el) {
+  return el.classList.contains('hidden');
+}
+
+ArchivesspaceBrowser.prototype.show = function(el) {
+  el.classList.remove('hidden');
+}
+
+ArchivesspaceBrowser.prototype.hide = function(el) {
+  if (!this.hidden(el)) {
+    el.classList.add('hidden');
+  }
+}
+
+/* END Utility functions */
+
+
 ArchivesspaceBrowser.prototype.generate = function() {
   this.generateHeading();
   this.generateResourceTreeComponent();
@@ -22,7 +124,7 @@ ArchivesspaceBrowser.prototype.generate = function() {
 
 
 ArchivesspaceBrowser.prototype.generateHeading = function() {
-  var heading = generateElement('h2');
+  var heading = this.generateElement('h2');
   heading.innerHTML = "Select record from ArchivesSpace";
   this.rootElement.appendChild(heading);
 }
@@ -30,26 +132,26 @@ ArchivesspaceBrowser.prototype.generateHeading = function() {
 
 ArchivesspaceBrowser.prototype.generateResourceSearchComponent = function() {
   var _this = this;
-  var element = generateElement('div');
+  var element = this.generateElement('div');
   element.setAttribute('id', 'resource-search');
 
-  var label = generateElement('label', 'block');
+  var label = this.generateElement('label', 'block');
   label.setAttribute('for','resource-search-input');
   label.innerHTML = 'Search resources by title, then select from results';
 
-  var input = generateElement('input');
-  setElementAttributes(input, { type: 'text', id: 'resource-search-input', placeholder: 'begin typing to see matching titles' });
+  var input = this.generateElement('input');
+  this.setElementAttributes(input, { type: 'text', id: 'resource-search-input', placeholder: 'begin typing to see matching titles' });
 
-  var results = generateElement('div');
+  var results = this.generateElement('div');
   results.setAttribute('id', 'resource-search-results');
 
-  var loading = generateElement('div', ['loading', 'hidden']);
-  var loadingMessage = generateElement('div', ['message']);
+  var loading = this.generateElement('div', ['loading', 'hidden']);
+  var loadingMessage = this.generateElement('div', ['message']);
   loadingMessage.innerHTML = 'LOADING';
   loading.appendChild(loadingMessage);
   results.appendChild(loading);
 
-  appendChildren(element, [ label, input, results ]);
+  this.appendChildren(element, [ label, input, results ]);
   this.resourceSearchLoading = loading;
   this.resourceSearchResults = results;
   this.resourceSearchInput = input;
@@ -63,33 +165,33 @@ ArchivesspaceBrowser.prototype.generateResourceSearchComponent = function() {
 
 ArchivesspaceBrowser.prototype.generateResourceTreeComponent = function() {
   var _this = this;
-  var element = generateElement('div', 'hidden');
+  var element = this.generateElement('div', 'hidden');
   element.setAttribute('id', 'resource-tree');
 
-  var label = generateElement('label', 'block');
+  var label = this.generateElement('label', 'block');
   label.setAttribute('for','resource-tree');
   label.innerHTML = 'Browse contents to find the correct record';
 
-  var backToSearchWrap = generateElement('div');
+  var backToSearchWrap = this.generateElement('div');
   backToSearchWrap.setAttribute('id','back-to-search');
-  backToSearch = generateBackLink("Back to search");
+  backToSearch = this.generateBackLink("Back to search");
 
   backToSearch.addEventListener('click', function(e) {
     _this.clearResourceTreeContent();
-    hide(_this.resourceTree);
-    show(_this.resourceSearch);
+    _this.hide(_this.resourceTree);
+    _this.show(_this.resourceSearch);
   });
 
   backToSearchWrap.appendChild(backToSearch);
 
-  var content = generateElement('div', 'resource-tree-content');
-  var loading = generateElement('div', ['loading', 'hidden']);
-  var loadingMessage = generateElement('div', ['message']);
+  var content = this.generateElement('div', 'resource-tree-content');
+  var loading = this.generateElement('div', ['loading', 'hidden']);
+  var loadingMessage = this.generateElement('div', ['message']);
   loadingMessage.innerHTML = 'LOADING';
   loading.appendChild(loadingMessage);
   // content.appendChild(loading);
 
-  appendChildren(element, [ backToSearchWrap, label, content, loading ]);
+  this.appendChildren(element, [ backToSearchWrap, label, content, loading ]);
 
   this.resourceTree = element;
   this.resourceTreeContent = content;
@@ -106,10 +208,10 @@ ArchivesspaceBrowser.prototype.performResourceSearch = function(q) {
   this.clearResourceSearchResults();
 
   if (q.length >= 3) {
-    show(this.resourceSearchLoading);
+    this.show(this.resourceSearchLoading);
 
-    getUrl(url, function(results) {
-      hide(_this.resourceSearchLoading);
+    this.getUrl(url, function(results) {
+      _this.hide(_this.resourceSearchLoading);
       var results = JSON.parse(results);
       _this.updateSearchResults(results);
     });
@@ -132,7 +234,7 @@ ArchivesspaceBrowser.prototype.updateSearchResults = function(results) {
   this.clearResourceSearchResults();
   var content;
   if (results.length == 0) {
-    content = generateElement('div', ['results', 'no-results']);
+    content = this.generateElement('div', ['results', 'no-results']);
     content.innerHTML = "No results";
   }
   else {
@@ -145,15 +247,15 @@ ArchivesspaceBrowser.prototype.updateSearchResults = function(results) {
 
 ArchivesspaceBrowser.prototype.searchResultsList = function(results) {
   var _this = this;
-  var list = generateElement('ul', 'results');
+  var list = this.generateElement('ul', 'results');
   results.forEach(function(r) {
-    var item = generateElement('li', 'row');
-    var link = generateElement('span', 'link');
+    var item = _this.generateElement('li', 'row');
+    var link = _this.generateElement('span', 'link');
     link.setAttribute('data-uri', r.uri);
     link.innerHTML = r['title'];
     link.addEventListener('click', function(e) {
-      hide(_this.resourceSearch);
-      show(_this.resourceTree);
+      _this.hide(_this.resourceSearch);
+      _this.show(_this.resourceTree);
       var uri = this.getAttribute('data-uri');
       _this.loadResourceTree(uri);
     });
@@ -253,11 +355,11 @@ ArchivesspaceBrowser.prototype.leafIsFile = function(data) {
 ArchivesspaceBrowser.prototype.generateLeafElement = function(data, level) {
   var _this = this;
   var levelClass = 'level-' + level;
-  var leaf = generateElement('div', [levelClass, 'tree-level', 'tree-level-leaf']);
+  var leaf = this.generateElement('div', [levelClass, 'tree-level', 'tree-level-leaf']);
   var html = this.leafInnerHTML(data);
 
   if (data['child_count'] > 0) {
-    var leafLink = generateElement('span', 'link');
+    var leafLink = this.generateElement('span', 'link');
     leafLink.innerHTML = html;
 
     leafLink.addEventListener('click', function(e) {
@@ -269,8 +371,8 @@ ArchivesspaceBrowser.prototype.generateLeafElement = function(data, level) {
   else {
     leaf.innerHTML = html;
     if (this.leafHasContainers(data) || this.leafIsFile(data)) {
-      var select = generateElement('span', 'select-record');
-      var selectLink = generateElement('span', 'link');
+      var select = this.generateElement('span', 'select-record');
+      var selectLink = this.generateElement('span', 'link');
       selectLink.setAttribute('data-uri', data['uri']);
       selectLink.innerHTML = 'Select this record';
 
@@ -306,20 +408,20 @@ ArchivesspaceBrowser.prototype.updateRecordPane = function(data) {
   var recordPane = document.querySelector('#record-pane');
   // remove old content
   recordPane.innerHTML = '';
-  var content = generateElement('div', 'record-pane-content');
-  var label = htmlToElement('<div class="heading">Selected record:</div>');
+  var content = this.generateElement('div', 'record-pane-content');
+  var label = this.htmlToElement('<div class="heading">Selected record:</div>');
   content.appendChild(label);
   var branches = document.querySelectorAll('#resource-tree-level-content .tree-level-branch');
   var leafIndex = branches.length;
   for (var i = 0; i < branches.length; i++) {
     var branch = branches[i];
     var levelClass = 'level-' + i;
-    var e = generateElement('div', [levelClass, 'tree-level-branch']);
+    var e = this.generateElement('div', [levelClass, 'tree-level-branch']);
     e.innerText = branch.innerText;
     content.appendChild(e);
   }
   var leafLevelClass = 'level-' + leafIndex;
-  var leaf = generateElement('div', [leafLevelClass, 'tree-level-leaf']);
+  var leaf = this.generateElement('div', [leafLevelClass, 'tree-level-leaf']);
   leaf.innerText = data['display_string'];
   content.appendChild(leaf);
   recordPane.appendChild(content);
@@ -331,7 +433,7 @@ ArchivesspaceBrowser.prototype.getArchivalObjectRecord = function(uri) {
   var url = this.apiRootPath + uri;
   url = url.replace(/\/{2}/,'/');
 
-  getUrl(url, function(data) {
+  this.getUrl(url, function(data) {
     _this.updateRecordPane(data);
 
     if (_this.callback) {
@@ -349,10 +451,10 @@ ArchivesspaceBrowser.prototype.clearResourceTreeContent = function() {
 
 
 ArchivesspaceBrowser.prototype.getFromAspaceApi = function(path, params, callback) {
-  var url = rootPath() + '/archivesspace_api';
+  var url = this.apiRootPath + '/api_get';
   var getParams = params || {};
   getParams['path'] = path;
-  getUrlWithParams(url, getParams, callback);
+  this.getUrlWithParams(url, getParams, callback);
 }
 
 
@@ -367,7 +469,7 @@ ArchivesspaceBrowser.prototype.getTreeNodeData = function(archivalObjectUri, cal
   var _this = this;
   var params = { root_uri: this.resourceUri, node_uri: archivalObjectUri };
   var url = rootPath() + '/archivesspace/tree_node_data';
-  getUrlWithParams(url, params, callback);
+  this.getUrlWithParams(url, params, callback);
 }
 
 
@@ -383,17 +485,17 @@ ArchivesspaceBrowser.prototype.loadResourceTree = function(resourceUri) {
 ArchivesspaceBrowser.prototype.resourceTreeUpdateInProgress = function() {
   var branches = document.querySelector('#resource-tree-level-content .tree-leaves');
   if (branches) {
-    hide(branches);
+    this.hide(branches);
   }
-  show(this.resourceTreeLoading);
+  this.show(this.resourceTreeLoading);
 }
 
 
 ArchivesspaceBrowser.prototype.resourceTreeUpdateComplete = function() {
   var branches = document.querySelector('#resource-tree-level-content .tree-leaves');
-  hide(this.resourceTreeLoading);
+  this.hide(this.resourceTreeLoading);
   if (branches) {
-    show(branches);
+    this.show(branches);
   }
 }
 
@@ -433,11 +535,14 @@ ArchivesspaceBrowser.prototype.getResourceTreeLevel = function(parentUri) {
 
 ArchivesspaceBrowser.prototype.setTreeParams = function(treeLevelData, parentUri) {
   var parent = (!parentUri || parentUri == this.resourceUri) ? '' : parentUri;
-  var newContent = generateElement('div');
+  var newContent = this.generateElement('div');
   newContent.setAttribute('id','resource-tree-level-content');
 
-  if (!treeLevelData.children && treeLevelData['precomputed_waypoints']) {
+  if (!treeLevelData.children && treeLevelData['precomputed_waypoints'] && treeLevelData['precomputed_waypoints'][parent]) {
     treeLevelData.children = treeLevelData['precomputed_waypoints'][parent][0]
+  }
+  else {
+    treeLevelData.children = [];
   }
 
   var params = {
@@ -445,8 +550,8 @@ ArchivesspaceBrowser.prototype.setTreeParams = function(treeLevelData, parentUri
     parentUri: parentUri || this.resourceUri,
     children: treeLevelData.children,
     newContent: newContent,
-    treeHead: generateElement('div', 'tree-branches'),
-    treeLeaves: generateElement('div', 'tree-leaves'),
+    treeHead: this.generateElement('div', 'tree-branches'),
+    treeLeaves: this.generateElement('div', 'tree-leaves'),
     oldContent: this.resourceTreeContent.querySelector('#resource-tree-level-content')
   }
 
@@ -472,9 +577,9 @@ ArchivesspaceBrowser.prototype.updateResourceTree = function(treeLevelData, pare
     var uri = this.activeResourceTreePath[i];
     var data = this.resourceTreeMap[uri];
     var levelClass = 'level-' + i;
-    var heading = generateElement('div', [levelClass, 'tree-level', 'tree-level-branch']);
+    var heading = this.generateElement('div', [levelClass, 'tree-level', 'tree-level-branch']);
     if (!isCurrentLevel) {
-      var levelLink = generateElement('span', 'link');
+      var levelLink = this.generateElement('span', 'link');
       levelLink.innerHTML = data['title'];
       levelLink.addEventListener('click', function(e) {
         _this.getResourceTreeLevel(uri);
@@ -509,8 +614,15 @@ ArchivesspaceBrowser.prototype.updateResourceTree = function(treeLevelData, pare
 ArchivesspaceBrowser.prototype.addLeaves = function(leavesWrapper, leavesData, level) {
   var _this = this;
 
-  leavesData.forEach(function(data) {
-    var leaf = _this.generateLeafElement(data, level);
+  if (leavesData.length == 0) {
+    var leaf = this.generateElement('div', ['level-1', 'tree-level', 'tree-level-leaf', 'tree-level-no-children']);
+    leaf.innerHTML = "This resource contains no children"
     leavesWrapper.appendChild(leaf);
-  });
+  }
+  else {
+    leavesData.forEach(function(data) {
+      var leaf = _this.generateLeafElement(data, level);
+      leavesWrapper.appendChild(leaf);
+    });
+  }
 }

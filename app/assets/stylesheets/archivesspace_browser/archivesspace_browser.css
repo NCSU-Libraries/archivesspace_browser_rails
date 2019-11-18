@@ -1,17 +1,36 @@
+#archivesspace-browser-components {
+  font-family: helvetica, arial, sans-serif;
+}
+
+#archivesspace-browser-components label {
+  /*font-weight: bold;*/
+  font-size: 1rem !important;
+}
+
+#archivesspace-browser-components .block {
+  display: block;
+}
+
+#archivesspace-browser-components .hidden {
+  display: none;
+}
+
+#archivesspace-browser-components .link {
+  color: #427E93;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
 #archivesspace-browser {
-  border: 1px solid $grayLight;
+  border: 1px solid #989c9b;
   padding: 0.5rem 1rem;
-  background: $grayGhost;
+  background: #EBF0EF;
 }
 
 #archivesspace-browser h2 {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-#archivesspace-browser label {
-  font-weight: bold;
-  font-size: 1rem !important;
+  margin: 0 0 0.5rem 0;
 }
 
 #archivesspace-browser .select-record {
@@ -19,6 +38,11 @@
   position: relative;
   top: -3px;
   white-space: nowrap;
+}
+
+#archivesspace-browser input#resource-search-input {
+  padding: 0.5rem;
+  width: 20rem;
 }
 
 #archivesspace-browser .select-record .link {
@@ -32,7 +56,7 @@
 }
 
 #archivesspace-browser .select-record .link:hover {
-  background: $blue;
+  background: #427E93;
 }
 
 #archivesspace-browser .tree-level {
@@ -44,8 +68,8 @@
 }
 
 #archivesspace-browser .tree-branches {
-  background: $gray;
-  color: $white;
+  background: #79807F;
+  color: #fff;
   padding: 0.25rem 0.5rem;
 }
 
@@ -60,6 +84,15 @@
 
 #archivesspace-browser .tree-level-branch {
   font-weight: bold;
+}
+
+#archivesspace-browser .tree-level-no-children {
+  font-style: italic;
+}
+
+#archivesspace-browser #resource-search label[for='resource-search-input'],
+#archivesspace-browser #resource-tree label[for='resource-tree'] {
+  margin-bottom: 0.5rem;
 }
 
 #archivesspace-browser #resource-search-results {
@@ -82,7 +115,7 @@
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   padding: 0.5rem 0;
-  background: $grayGhost2;
+  background: #F5F7F7;
 }
 
 /* Force Webkit to display scrollbars */
@@ -114,7 +147,7 @@
   margin: 0 0 1.5rem 0;
   border: 1px solid #ccc;
   padding: 0.5rem 1rem;
-  background: $grayLightest;
+  background: #e1e5e5;
 }
 
 #archivesspace-browser-post #back-to-select {
