@@ -47,7 +47,14 @@ class ArchivesspaceBrowserController < ActionController::Base
         @data['children'] = @data['precomputed_waypoints'][@node_uri]['0']
       end
 
+      puts "***"
+      puts @data['children'].inspect
+
       resolve_additional_waypoints
+
+      puts "***"
+      puts @data['children'].inspect
+
       puts @data['children'].length
     end
     render json: @data

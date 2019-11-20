@@ -3,7 +3,6 @@
 }
 
 #archivesspace-browser-components label {
-  /*font-weight: bold;*/
   font-size: 1rem !important;
 }
 
@@ -21,6 +20,44 @@
   text-decoration: none;
 }
 
+#archivesspace-browser-components input[type='text'] {
+  padding: 0.5rem;
+  width: 20rem;
+}
+
+#archivesspace-browser-components label[for='resource-search-input'],
+#archivesspace-browser-components label[for='resource-tree'],
+#archivesspace-browser-components label[for='select-by-uri-input'] {
+  margin-bottom: 0.5rem;
+}
+
+#archivesspace-browser-components button {
+  padding: 0.5rem;
+  background-color: #427E93;
+  color: #fff;
+  border: none;
+}
+
+
+#archivesspace-browser-components .loading {
+  background-image: url("./loading.gif");
+  background-position: center 1rem;
+  background-repeat: no-repeat;
+  width: 100px;
+  margin: 0 auto;
+}
+
+#archivesspace-browser-components .loading .message {
+  padding: 40px 0;
+  color: #cc0000;
+  font-style: italic;
+  text-align: center;
+}
+
+#archivesspace-browser-components #archivesspace-browser-heading {
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+}
 
 #archivesspace-browser {
   border: 1px solid #989c9b;
@@ -34,24 +71,19 @@
 }
 
 #archivesspace-browser .select-record {
-  padding-left: 1rem;
+  padding-left: 0.75rem;
   position: relative;
   top: -3px;
   white-space: nowrap;
-}
-
-#archivesspace-browser input#resource-search-input {
-  padding: 0.5rem;
-  width: 20rem;
 }
 
 #archivesspace-browser .select-record .link {
   text-transform: uppercase;
   font-size: 60%;
   line-height: 1.2em;
-  padding: 0.2rem;
+  padding: 0.2rem 0.2rem 0.15rem 0.2rem;
   color: white;
-  background: #666;
+  background: #427E93;
   text-decoration: none;
 }
 
@@ -60,7 +92,7 @@
 }
 
 #archivesspace-browser .tree-level {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 #archivesspace-browser .tree-level .container {
@@ -74,6 +106,10 @@
 }
 
 #archivesspace-browser .tree-branches .tree-level {
+  margin-bottom: 0.25em;
+}
+
+#archivesspace-browser .tree-branches .tree-level.tree-level-branch {
   margin-bottom: 0;
 }
 
@@ -84,23 +120,39 @@
 
 #archivesspace-browser .tree-level-branch {
   font-weight: bold;
+  margin-bottom: 0;
 }
 
 #archivesspace-browser .tree-level-no-children {
   font-style: italic;
 }
 
-#archivesspace-browser #resource-search label[for='resource-search-input'],
-#archivesspace-browser #resource-tree label[for='resource-tree'] {
-  margin-bottom: 0.5rem;
+#archivesspace-browser #resource-search,
+#archivesspace-browser #resource-tree {
+  margin-bottom: 1rem;
 }
 
 #archivesspace-browser #resource-search-results {
-  margin: 1rem 0;
+  margin: 0.5rem 0 1rem 0;
+  padding: 0.75rem;
+  background: #fdfdfd;
+  border: 1px solid #ddd;
 }
 
-#archivesspace-browser #resource-search-results .row {
-  margin-bottom: 0.5rem;
+#archivesspace-browser #resource-search-results ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#archivesspace-browser #resource-search-results ul li {
+  margin: 0 0 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+#archivesspace-browser #resource-search-results ul li:last-child {
+  margin-bottom: 0;
 }
 
 #archivesspace-browser #back-to-search {
@@ -116,6 +168,7 @@
   border-bottom: 1px solid #eee;
   padding: 0.5rem 0;
   background: #F5F7F7;
+  line-height: 1.25em;
 }
 
 /* Force Webkit to display scrollbars */
@@ -143,25 +196,30 @@
 #archivesspace-browser-components .level-11 { padding-left: 11rem; }
 #archivesspace-browser-components .level-12 { padding-left: 12rem; }
 
-#archivesspace-browser-post {
+#archivesspace-browser-post #record-pane {
   margin: 0 0 1.5rem 0;
   border: 1px solid #ccc;
   padding: 0.5rem 1rem;
   background: #e1e5e5;
+  font-size: 0.9rem;
 }
 
-#archivesspace-browser-post #back-to-select {
+#archivesspace-browser-components #back-to-select {
   margin-bottom: 0.5rem;
 }
 
-#archivesspace-browser-post #record-pane  .heading {
+#archivesspace-browser-components #record-pane  .heading {
   margin: 0 0 0.5rem 0;
-  font-size: 80%;
+  font-size: 0.8rem;
   text-transform: uppercase;
 }
 
-#archivesspace-browser-post #record-pane .tree-level-leaf {
+#archivesspace-browser-components #record-pane .tree-level-branch{
+  margin-bottom: 0.25rem;
+  line-height: 1.3em;
+}
+
+#archivesspace-browser-components #record-pane .tree-level-leaf {
   font-weight: bold;
-  margin-bottom: 0.75rem;
   line-height: 1.3em;
 }
