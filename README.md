@@ -1,5 +1,5 @@
 # ArchivesspaceBrowser
-A Rails ENgine gem that provides an interface for selecting an ArchivalObject record from ArchivesSpace (via search/browse or direct selection by URI). The selected record is retrieved from the ArchivesSpace API and the data can be passed into a custom javascript function to be used for any purpose.
+A Rails Engine gem that provides an interface for selecting an ArchivalObject record from ArchivesSpace (via search/browse or direct selection by URI). The selected record is retrieved from the ArchivesSpace API and the data can be passed into a custom javascript function to be used for any purpose.
 
 ## Installation and configuration
 
@@ -15,8 +15,8 @@ Then run `bundle install`
 
 ### Configure gem for your ArchivesSpace installation
 
-The gem needs to communicate your ArchivesSpace installation via its API.
-To enable this, create a new file named `archivesspace_config.rb` in `/config/initializers` that looks like this, replacing placeholder with the correct values for your AechivesSpace instance:
+The gem needs to communicate with your ArchivesSpace installation via its API.
+To enable this, create a new file named `archivesspace_config.rb` in `/config/initializers` that looks like this (replacing placeholders with the correct values for your AechivesSpace instance):
 
 ```ruby
 ArchivesspaceBrowser.configure do |config|
@@ -30,7 +30,7 @@ ArchivesspaceBrowser.configure do |config|
 end
 ```
 
-If your ArchivesSpace instance uses SSL your configuration might look more like this:
+If your ArchivesSpace instance uses SSL/HTTPS (with ports corresponding to each component application redirected to separate subdomains) your configuration might look more like this:
 
 ```ruby
 ArchivesspaceBrowser.configure do |config|
@@ -52,7 +52,7 @@ Add this to `app/assets/javascripts/application.rb` to require gem javascript:
 //= require archivesspace_browser/archivesspace_browser
 ```
 
-And add this to `app/assets/stylesheets/application.css` to include gem CSS:
+And add this to `app/assets/stylesheets/application.css` to require gem CSS:
 
 ```
 *= require archivesspace_browser/archivesspace_browser
@@ -64,7 +64,7 @@ And add this to `app/assets/stylesheets/application.css` to include gem CSS:
 
 ### HTML helper
 
-To include the ArchivesSpace browser in a page template call the included halper method like this:
+To include the ArchivesSpace browser in a page template call the included helper method like this:
 
 ```
 <%= archviesspace_browser %>
@@ -75,7 +75,7 @@ This will generate the required HTML that will be targeted by the javascript imp
 
 ### Javascript implementation
 
-For the most basic implmentation, add this to one of the javascript files in ypour asset pipeline:
+For the most basic implmentation, add this to one of the javascript files in your asset pipeline:
 
 ```js
 document.addEventListener('DOMContentLoaded', function() {
@@ -103,7 +103,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 ## Contributing
+
 Pull requests and issues for this repo are welcome.
 
+
 ## License
+
 The gem is available as open source under the terms of the [MIT License](./MIT-LICENSE).
