@@ -21,3 +21,4 @@ _work/
 !/archivesspace_browser_test_app/log/.keep
 !/archivesspace_browser_test_app/tmp/.keep
 /archivesspace_browser_test_app/storage/*
+/archivesspace_browser_test_app/config/initializers/archivesspace_config.rb
