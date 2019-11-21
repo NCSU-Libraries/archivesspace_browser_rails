@@ -1,5 +1,5 @@
-# ArchivesspaceBrowser
-A Rails Engine gem that provides an interface for selecting an ArchivalObject record from ArchivesSpace (via search/browse or direct selection by URI). The selected record is retrieved from the ArchivesSpace API and the data can be passed into a custom javascript function to be used for any purpose.
+# ArchivesSpace Browser
+A Rails Engine gem that provides an interface for selecting an ArchivalObject records from ArchivesSpace (via search/browse or direct selection by URI). The selected record is retrieved from the ArchivesSpace API and the data can be passed into a custom javascript function to be used for any purpose.
 
 ## Installation and configuration
 
@@ -44,20 +44,20 @@ ArchivesspaceBrowser.configure do |config|
 end
 ```
 
+
 ### Add gem assets to asset pipeline
 
-Add this to `app/assets/javascripts/application.rb` to require gem javascript:
+Add this to `app/assets/javascripts/application.rb` to include required javascript:
 
 ```js
 //= require archivesspace_browser/archivesspace_browser
 ```
 
-And add this to `app/assets/stylesheets/application.css` to require gem CSS:
+And add this to `app/assets/stylesheets/application.css` to include required CSS:
 
 ```
 *= require archivesspace_browser/archivesspace_browser
 ```
-
 
 
 ## Usage
@@ -99,7 +99,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ### Customization options
 
-> Coming soon...
+#### CSS
+
+See (browser css file)[./app/assets/stylesheets/archviesspace_browser/archivesspace_browser.css]. Custom CSS declarations can target descendants of `#archivesspace-browser-components` or `#archivesspace-browser` as appropriate.
+
+#### Javscript
+
+> Coming...
+
+
+### Test Rails app
+
+There is a bare-bones Rails app included in this repo that you can use to preview the gem. FOlloow the instructions below to get it running.
+
+> NOTE: Currently, running the test app requires that you have Ruby installed locally.
+
+1. Close or download/unzip this repo to a direcxtory on your computer
+
+2. From the terminal `cd` in the location where you cloned/unzipped the repo.
+
+3. Run `bundle install`
+
+4. Follow the (instructions above for configuring ArchviesSpace)[https://github.ncsu.edu/ncsu-libraries/archivesspace_browser_rails#configure-gem-for-your-archivesspace-installation]
+
+5. Run `rails s` to start the embedded server, then open **localhost:3000** in your browser.
 
 
 ## Contributing
