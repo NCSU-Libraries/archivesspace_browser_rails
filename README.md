@@ -1,5 +1,5 @@
 # ArchivesSpace Browser
-A Rails Engine gem that provides an interface for selecting an ArchivalObject records from ArchivesSpace (via search/browse or direct selection by URI). The selected record is retrieved from the ArchivesSpace API and the data can be passed into a custom javascript function to be used for any purpose.
+A Rails Engine gem that provides an interface for selecting an ArchivalObject record from ArchivesSpace (via search/browse or direct selection by URI). The selected record is retrieved from the ArchivesSpace API and the data can be passed into a custom javascript function to be used for any purpose.
 
 ## Installation and configuration
 
@@ -110,17 +110,17 @@ See [gem CSS file](./app/assets/stylesheets/archviesspace_browser/archivesspace_
 
 ### Test Rails app
 
-There is a bare-bones Rails app included in this repo that you can use to preview the gem. FOlloow the instructions below to get it running.
+There is a bare-bones Rails app included in this repo that you can use to preview the gem. Follow the instructions below to get it running.
 
 > NOTE: Currently, running the test app requires that you have Ruby installed locally.
 
-1. Close or download/unzip this repo to a direcxtory on your computer
+1. Clone or download/unzip this repo to a directory on your computer.
 
-2. From the terminal `cd` in the location where you cloned/unzipped the repo.
+2. From the terminal, `cd` into the location where you cloned/unzipped the repo.
 
-3. Run `bundle install`
+3. Run `bundle install`.
 
-4. Follow the [instructions above for configuring ArchviesSpace](#configure-gem-for-your-archivesspace-installation)
+4. Follow the [instructions above for configuring ArchviesSpace](#configure-gem-for-your-archivesspace-installation).
 
 5. Run `rails s` to start the embedded server, then open **localhost:3000** in your browser.
 
