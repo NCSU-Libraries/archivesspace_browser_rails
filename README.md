@@ -64,18 +64,18 @@ And add this to `app/assets/stylesheets/application.css` to include required CSS
 
 ### HTML helper
 
-To include the ArchivesSpace browser in a page template call the included helper method like this:
+To include the ArchivesSpace browser in a view template call the included helper method like this:
 
 ```
 <%= archviesspace_browser %>
 ```
 
-This will generate the required HTML that will be targeted by the javascript impelemented below.
+This will generate the required HTML targeted by the javascript to generate the browser components.
 
 
-### Javascript implementation
+### Javascript (initilize the browser)
 
-For the most basic implmentation, add this to one of the javascript files in your asset pipeline:
+For the most basic implmentation, add this to one of the javascript files in your asset pipeline (after `archivespace_brwoser`):
 
 ```js
 document.addEventListener('DOMContentLoaded', function() {
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 With this added, the ArchivesSpace browser will be rendered where you added the helper above. When an ArchivesSpace record is selected, the title and container info will be displayed and ... nothing else.
 
-To do anything useful, you will also need to pass in a callback function that accepts a single argument. When a record is selected, the full record will be retrieved from the ArchivesSpace API and the JSON data returned will passed into the callback function.
+To do anything useful, you will also need to pass in a callback function that accepts a single argument (the JSON data returned from ArchivesSpace). After a record is selected, the full record will be retrieved from the ArchivesSpace API and passed into the callback function.
 
 The example below takes the returned JSON and displays it in a janky javascript alert:
 
