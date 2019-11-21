@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 #### CSS
 
-See (browser css file)[./app/assets/stylesheets/archviesspace_browser/archivesspace_browser.css]. Custom CSS declarations can target descendants of `#archivesspace-browser-components` or `#archivesspace-browser` as appropriate.
+See [browser css file](./app/assets/stylesheets/archviesspace_browser/archivesspace_browser.css). Custom CSS declarations can target descendants of `#archivesspace-browser-components` or `#archivesspace-browser` as appropriate.
 
 #### Javscript
 
@@ -120,7 +120,7 @@ There is a bare-bones Rails app included in this repo that you can use to previe
 
 3. Run `bundle install`
 
-4. Follow the (instructions above for configuring ArchviesSpace)[https://github.ncsu.edu/ncsu-libraries/archivesspace_browser_rails#configure-gem-for-your-archivesspace-installation]
+4. Follow the [instructions above for configuring ArchviesSpace](https://github.ncsu.edu/ncsu-libraries/archivesspace_browser_rails#configure-gem-for-your-archivesspace-installation)
 
 5. Run `rails s` to start the embedded server, then open **localhost:3000** in your browser.
 
