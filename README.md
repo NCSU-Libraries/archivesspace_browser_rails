@@ -16,7 +16,7 @@ Then run `bundle install`
 ### Configure gem for your ArchivesSpace installation
 
 The gem needs to communicate with your ArchivesSpace installation via its API.
-To enable this, create a new file named `archivesspace_config.rb` in `/config/initializers` that looks like this (replacing placeholders with the correct values for your AechivesSpace instance):
+To enable this, create a new file named `archivesspace_config.rb` in `/config/initializers` that looks like this (replacing placeholders with the correct values for your ArchivesSpace instance):
 
 ```ruby
 ArchivesspaceBrowser.configure do |config|
