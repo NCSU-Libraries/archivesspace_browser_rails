@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 #### CSS
 
-See [browser css file](./app/assets/stylesheets/archviesspace_browser/archivesspace_browser.css). Custom CSS declarations can target descendants of `#archivesspace-browser-components` or `#archivesspace-browser` as appropriate.
+See [gem CSS file](./app/assets/stylesheets/archviesspace_browser/archivesspace_browser.css) for guidance. Custom CSS declarations can target descendants of `#archivesspace-browser-components` or `#archivesspace-browser` as appropriate to avoid conflicts.
 
 #### Javscript
 
