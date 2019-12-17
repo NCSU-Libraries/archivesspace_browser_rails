@@ -90,7 +90,7 @@
 
 
 #archivesspace-browser-components .loading {
-  background-image: url("./loading.gif");
+  background-image: image-url("archivesspace_browser/loading.gif");
   background-position: center 1rem;
   background-repeat: no-repeat;
   width: 100px;
