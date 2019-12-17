@@ -32,8 +32,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 5.2", ">= 5.2.2.1"
 
-  spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "bundler"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
 end
