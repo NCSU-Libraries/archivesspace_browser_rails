@@ -8,8 +8,11 @@ A Rails Engine gem that provides an interface for selecting an ArchivalObject re
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'archivesspace_browser', git: 'https://github.ncsu.edu/ncsu-libraries/archivesspace_browser_rails.git'
+gem 'archivesspace_browser', git: 'git@github.ncsu.edu:NCSU-Libraries/archivesspace_browser_rails.git'
 ```
+
+> NOTE: This will change to https when the repo moves to github.com
+
 
 Then run `bundle install`
 
