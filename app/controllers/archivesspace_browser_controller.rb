@@ -31,6 +31,26 @@ class ArchivesspaceBrowserController < ActionController::Base
   end
 
 
+  def get_tree_root_data
+    if !params[:root_uri]
+      @data = { errors: [':root_uri was not provided'] }
+    else
+      @root_uri = params[:root_uri]
+      @node_uri = nil
+      path = Pathname.new(@root_uri) + 'tree/root'
+      data = aspace_get(path.to_s)
+      @data = JSON.parse(data)
+
+      if @data['precomputed_waypoints'] && @data['precomputed_waypoints']['']
+        @data['children'] = @data['precomputed_waypoints']['']['0']
+      end
+
+      resolve_additional_waypoints
+    end
+    render json: @data
+  end
+
+
   # /repositories/:repo_id/resources/:id/tree_level
   def get_tree_node_data
     if !params[:root_uri] || !params[:node_uri]
@@ -47,15 +67,7 @@ class ArchivesspaceBrowserController < ActionController::Base
         @data['children'] = @data['precomputed_waypoints'][@node_uri]['0']
       end
 
-      puts "***"
-      puts @data['children'].inspect
-
       resolve_additional_waypoints
-
-      puts "***"
-      puts @data['children'].inspect
-
-      puts @data['children'].length
     end
     render json: @data
   end
@@ -89,13 +101,27 @@ class ArchivesspaceBrowserController < ActionController::Base
 
   def resolve_additional_waypoints
     if @data['waypoints'] > 1
+
+      puts "** resolving additional waypoints **"
+      puts @data['waypoints']
+
       i = 1
       while i < @data['waypoints'] do
         path = Pathname.new(@root_uri) + 'tree/waypoint'
-        params = { offset: i, parent_node: @node_uri }
+        params = { offset: i }
+        if @node_uri
+          params[:parent_node] = @node_uri
+        end
+
+        puts params.inspect
+
         response_data = aspace_get(path.to_s, params)
         waypoint_data = JSON.parse(response_data)
+
+
+
         if waypoint_data.is_a? Array
+          puts waypoint_data.inspect
           @data['children'] += waypoint_data
         end
         i += 1

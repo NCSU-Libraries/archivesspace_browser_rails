@@ -174,22 +174,24 @@ ArchivesspaceBrowser.prototype.generateSelectByUriComponent = function() {
   label.setAttribute('for','select-by-uri-input');
   label.innerHTML = 'Alternately, paste ArchivesSpace record URI and click "Select"';
 
-  var input = this.generateElement('input');
+  var input = this.generateElement('input', 'input-group-field');
   this.setElementAttributes(input, { type: 'text', id: 'select-by-uri-input', placeholder: 'Enter ArchivesSpace URI' });
 
-  var button = this.generateElement('button');
+  var button = this.generateElement('button', 'button');
   button.setAttribute('id', 'select-by-uri-submit');
   button.innerHTML = "Select"
 
-  this.appendChildren(element, [ label, input, button ]);
-  this.selectByUri = element;
-
   button.addEventListener('click', function(event) {
     var uri = input.value;
-    console.log(uri);
     _this.getArchivalObjectRecord(uri);
   });
 
+  var inputGroup = this.htmlToElement('<div class="input-group"></div>');
+  var inputGroupButtonWrapper = this.htmlToElement('<div class="input-group-button"></div>');
+  inputGroupButtonWrapper.appendChild(button);
+  this.appendChildren(inputGroup, [ input, inputGroupButtonWrapper ]);
+  this.appendChildren(element, [ label, inputGroup]);
+  this.selectByUri = element;
   this.rootElement.appendChild(this.selectByUri);
 }
 
@@ -491,10 +493,18 @@ ArchivesspaceBrowser.prototype.clearResourceTreeContent = function() {
 }
 
 
+// ArchivesspaceBrowser.prototype.getTreeRootData = function(callback) {
+//   var _this = this;
+//   var path = this.resourceUri + '/tree/root';
+//   this.getFromAspaceApi(path, null, callback);
+// }
+
+
 ArchivesspaceBrowser.prototype.getTreeRootData = function(callback) {
   var _this = this;
-  var path = this.resourceUri + '/tree/root';
-  this.getFromAspaceApi(path, null, callback);
+  var params = { root_uri: this.resourceUri };
+  var url = this.apiRootPath + '/tree_root_data';
+  this.getUrlWithParams(url, params, callback);
 }
 
 
@@ -543,9 +553,6 @@ ArchivesspaceBrowser.prototype.getResourceTreeLevel = function(parentUri) {
   // If tree level has already been loaded show loaded content
   if (this.resourceTreeMap[parentUri]) {
     treeLevelData = this.resourceTreeMap[parentUri];
-
-    console.log(treeLevelData);
-
     this.updateResourceTree(treeLevelData, parentUri);
   }
   // If tree level has not been loaded then go get it
@@ -553,13 +560,7 @@ ArchivesspaceBrowser.prototype.getResourceTreeLevel = function(parentUri) {
     this.resourceTreeUpdateInProgress();
 
     var callback = function(response) {
-
-      console.log(response);
-
       var treeLevelData = JSON.parse(response);
-
-      console.log(treeLevelData);
-
       _this.resourceTreeMap[parentUri] = treeLevelData;
       _this.updateResourceTree(treeLevelData, parentUri);
       _this.resourceTreeUpdateComplete();
@@ -576,9 +577,6 @@ ArchivesspaceBrowser.prototype.getResourceTreeLevel = function(parentUri) {
 
 
 ArchivesspaceBrowser.prototype.setTreeParams = function(treeLevelData, parentUri) {
-
-  console.log(treeLevelData);
-
   var parent = (!parentUri || parentUri == this.resourceUri) ? '' : parentUri;
   var newContent = this.generateElement('div');
   newContent.setAttribute('id','resource-tree-level-content');
@@ -659,7 +657,6 @@ ArchivesspaceBrowser.prototype.updateResourceTree = function(treeLevelData, pare
 
 ArchivesspaceBrowser.prototype.addLeaves = function(leavesWrapper, leavesData, level) {
   var _this = this;
-  console.log(leavesData);
 
   if (leavesData.length == 0) {
     var leaf = this.generateElement('div', ['level-1', 'tree-level', 'tree-level-leaf', 'tree-level-no-children']);

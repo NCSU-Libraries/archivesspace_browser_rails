@@ -22,8 +22,14 @@
 
 #archivesspace-browser-components input[type='text'] {
   padding: 0.5rem;
-  width: 20rem;
+  width: 100%;
+  max-width: 30rem;
 }
+
+#archivesspace-browser-components input#select-by-uri-input {
+  display: inline-block;
+}
+
 
 #archivesspace-browser-components label[for='resource-search-input'],
 #archivesspace-browser-components label[for='resource-tree'],
@@ -36,7 +42,51 @@
   background-color: #427E93;
   color: #fff;
   border: none;
+  cursor: pointer;
 }
+
+
+/* input-group styles borrowed from Foundation */
+
+#archivesspace-browser-components .input-group {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    max-width: 30rem;
+    margin-bottom: 1rem;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+#archivesspace-browser-components .input-group-button {
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+#archivesspace-browser-components .input-group-field {
+    border-radius: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 0px;
+    -ms-flex: 1 1 0px;
+    flex: 1 1 0px;
+    min-width: 0;
+}
+
+/* END - input-group styles borrowed from Foundation */
+
 
 
 #archivesspace-browser-components .loading {

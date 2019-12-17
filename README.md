@@ -67,7 +67,7 @@ And add this to `app/assets/stylesheets/application.css` to include required CSS
 To include the ArchivesSpace browser in a view template call the included helper method like this:
 
 ```
-<%= archviesspace_browser %>
+<%= archivesspace_browser %>
 ```
 
 This will generate the required HTML targeted by the javascript to generate the browser components.
