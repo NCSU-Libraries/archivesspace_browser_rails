@@ -1,7 +1,7 @@
 # ArchivesSpace Browser
 A Rails Engine gem that provides an interface for selecting an ArchivalObject record from ArchivesSpace (via search/browse or direct selection by URI). The selected record is retrieved from the ArchivesSpace API and the data can be passed into a custom javascript function to be used for any purpose.
 
-> This project was developed as part of ***['The Animal Turn': Digitizing Animal Protection and Human-Animal Studies Collections](https://www.lib.ncsu.edu/animal-turn)***, a three-year, grant-funded project undertaken in partnership with the American Society for the Prevention of Cruelty to Animals (ASPCA) with funding from the Council on Library and Information Resources (CLIR).
+> This project was developed as part of ***['The Animal Turn': Digitizing Animal Protection and Human-Animal Studies Collections](https://www.lib.ncsu.edu/animal-turn)***, a three-year, grant-funded project undertaken in partnership with the [American Society for the Prevention of Cruelty to Animals (ASPCA)](https://www.aspca.org/) with funding from the [Council on Library and Information Resources (CLIR)](https://www.clir.org/).
 
 ## Installation and configuration
 
