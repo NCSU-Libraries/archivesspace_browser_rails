@@ -182,6 +182,7 @@ ArchivesspaceBrowser.prototype.generateSelectByUriComponent = function() {
   button.innerHTML = "Select"
 
   button.addEventListener('click', function(event) {
+    event.preventDefault();
     var uri = input.value;
     _this.getArchivalObjectRecord(uri);
   });
@@ -292,6 +293,7 @@ ArchivesspaceBrowser.prototype.performResourceSearch = function(q) {
   this.clearResourceSearchResults();
 
   if (q.length >= 3) {
+    this.show(this.resourceSearchResults);
     this.show(this.resourceSearchLoading);
 
     this.getUrl(url, function(results) {
