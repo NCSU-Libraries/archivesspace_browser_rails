@@ -260,8 +260,6 @@ ArchivesspaceBrowser.prototype.getArchivalObjectRecord = function(uri) {
 
 
 ArchivesspaceBrowser.prototype.updateRecordPane = function(data) {
-  console.log(data);
-
   data = JSON.parse(data);
   var recordPane = document.querySelector('#record-pane');
   // remove old content
@@ -279,19 +277,10 @@ ArchivesspaceBrowser.prototype.updateRecordPane = function(data) {
     e.innerText = branch.innerText;
     content.appendChild(e);
   }
+  
   var leafLevelClass = 'level-' + leafIndex;
   var leaf = this.generateElement('div', [leafLevelClass, 'tree-level-leaf']);
-  
-  // if (data['display_string'] && !(data['display_string'] !== undefined)) {
-  //   leaf.innerText = data['display_string'];
-  // }
-  // else {
-  //   leaf.innerText = data['title']
-  // }
-
   leaf.innerText = data['display_string'] || data['title'];
-
-  console.log(data['display_string']);
 
   if (data['jsonmodel_type'] != 'archival_object') {
     leaf.innerText = leaf.innerText + ' (' + data['jsonmodel_type'] + ')';
