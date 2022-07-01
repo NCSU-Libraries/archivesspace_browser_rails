@@ -243,6 +243,8 @@ ArchivesspaceBrowser.prototype.generateResourceTreeComponent = function() {
 
 
 ArchivesspaceBrowser.prototype.getArchivalObjectRecord = function(uri) {
+  console.log(uri);
+
   var _this = this;
   var url = this.apiRootPath + uri;
   url = url.replace(/\/{2}/,'/');
@@ -258,6 +260,8 @@ ArchivesspaceBrowser.prototype.getArchivalObjectRecord = function(uri) {
 
 
 ArchivesspaceBrowser.prototype.updateRecordPane = function(data) {
+  console.log(data);
+
   data = JSON.parse(data);
   var recordPane = document.querySelector('#record-pane');
   // remove old content
@@ -277,7 +281,18 @@ ArchivesspaceBrowser.prototype.updateRecordPane = function(data) {
   }
   var leafLevelClass = 'level-' + leafIndex;
   var leaf = this.generateElement('div', [leafLevelClass, 'tree-level-leaf']);
-  leaf.innerText = data['display_string'];
+  
+  // if (data['display_string'] && !(data['display_string'] !== undefined)) {
+  //   leaf.innerText = data['display_string'];
+  // }
+  // else {
+  //   leaf.innerText = data['title']
+  // }
+
+  leaf.innerText = data['display_string'] || data['title'];
+
+  console.log(data['display_string']);
+
   if (data['jsonmodel_type'] != 'archival_object') {
     leaf.innerText = leaf.innerText + ' (' + data['jsonmodel_type'] + ')';
   }
@@ -443,6 +458,9 @@ ArchivesspaceBrowser.prototype.leafIsFile = function(data) {
 
 
 ArchivesspaceBrowser.prototype.generateLeafElement = function(data, level) {
+
+  console.log(data);
+
   var _this = this;
   var levelClass = 'level-' + level;
   var leaf = this.generateElement('div', [levelClass, 'tree-level', 'tree-level-leaf']);
