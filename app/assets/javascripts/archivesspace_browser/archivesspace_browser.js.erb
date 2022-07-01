@@ -234,12 +234,12 @@ ArchivesspaceBrowser.prototype.generateResourceTreeComponent = function() {
 }
 
 
-ArchivesspaceBrowser.prototype.getFromAspaceApi = function(path, params, callback) {
-  var url = this.apiRootPath + '/api_get';
-  var getParams = params || {};
-  getParams['path'] = path;
-  this.getUrlWithParams(url, getParams, callback);
-}
+// ArchivesspaceBrowser.prototype.getFromAspaceApi = function(path, params, callback) {
+//   var url = this.apiRootPath + '/api_get';
+//   var getParams = params || {};
+//   getParams['path'] = path;
+//   this.getUrlWithParams(url, getParams, callback);
+// }
 
 
 ArchivesspaceBrowser.prototype.getArchivalObjectRecord = function(uri) {
@@ -278,6 +278,9 @@ ArchivesspaceBrowser.prototype.updateRecordPane = function(data) {
   var leafLevelClass = 'level-' + leafIndex;
   var leaf = this.generateElement('div', [leafLevelClass, 'tree-level-leaf']);
   leaf.innerText = data['display_string'];
+  if (data['jsonmodel_type'] != 'archival_object') {
+    leaf.innerText = leaf.innerText + ' (' + data['jsonmodel_type'] + ')';
+  }
   content.appendChild(leaf);
   recordPane.appendChild(content);
 }
