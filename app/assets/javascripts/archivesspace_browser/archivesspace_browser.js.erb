@@ -446,6 +446,11 @@ ArchivesspaceBrowser.prototype.leafIsFile = function(data) {
 }
 
 
+ArchivesspaceBrowser.prototype.leafIsItem = function(data) {
+  return data['level'] == 'item';
+}
+
+
 ArchivesspaceBrowser.prototype.generateLeafElement = function(data, level) {
 
   console.log(data);
@@ -467,7 +472,7 @@ ArchivesspaceBrowser.prototype.generateLeafElement = function(data, level) {
   }
   else {
     leaf.innerHTML = html;
-    if (this.leafHasContainers(data) || this.leafIsFile(data)) {
+    if (this.leafHasContainers(data) || this.leafIsFile(data) || this.leafIsItem(data)) {
       var select = this.generateElement('span', 'select-record');
       var selectLink = this.generateElement('span', 'link');
       selectLink.setAttribute('data-uri', data['uri']);

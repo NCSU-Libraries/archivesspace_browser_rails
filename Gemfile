@@ -13,6 +13,3 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-
-# https://github.ncsu.edu/advisories/GHSA-2rr5-8q37-2w7h
-gem "nokogiri", ">= 1.12.5"
