@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    archivesspace_browser (0.1.7.1)
+    archivesspace_browser (0.1.8)
       rails
 
 GEM
@@ -92,7 +92,6 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.4)
     minitest (5.19.0)
     net-imap (0.3.7)
       date
@@ -104,8 +103,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.4)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.15.4-x86_64-darwin)
       racc (~> 1.4)
     racc (1.7.1)
     rack (2.2.8)
@@ -150,12 +148,11 @@ GEM
     zeitwerk (2.6.11)
 
 PLATFORMS
-  ruby
+  x86_64-darwin-20
 
 DEPENDENCIES
   archivesspace_browser!
   bundler
-  nokogiri (>= 1.12.5)
 
 BUNDLED WITH
-   2.0.2
+   2.3.22
